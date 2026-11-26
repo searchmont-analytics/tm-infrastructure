@@ -1,0 +1,601 @@
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var store = {
+    get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  };
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+
+  /* ---------- tooltip ---------- */
+  var tip = $('#tip');
+  function showTip(html, x, y) {
+    tip.innerHTML = html; tip.hidden = false;
+    var w = tip.offsetWidth, h = tip.offsetHeight;
+    var left = Math.min(Math.max(8, x + 14), window.innerWidth - w - 8);
+    var top = y - h - 12; if (top < 8) top = y + 18;
+    tip.style.left = left + 'px'; tip.style.top = top + 'px';
+  }
+  function hideTip() { tip.hidden = true; }
+  function bindTip(el, html) {
+    el.addEventListener('pointermove', function (e) { showTip(html(), e.clientX, e.clientY); });
+    el.addEventListener('pointerleave', hideTip);
+    el.addEventListener('focus', function () { var r = el.getBoundingClientRect(); showTip(html(), r.left + r.width / 2, r.top); });
+    el.addEventListener('blur', hideTip);
+  }
+  window.addEventListener('scroll', hideTip, { passive: true });
+
+  function segmented(root, attr, onChange) {
+    root.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      $$('button', root).forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      onChange(b.dataset[attr]);
+    });
+  }
+
+  /* ---------- theme ---------- */
+  $('#themeBtn').addEventListener('click', function () {
+    var next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+    document.documentElement.dataset.theme = next; store.set('theme', next);
+    drawLab();
+  });
+
+  /* ---------- role fit ---------- */
+  var EV = {
+    satellite: ['OLG', 'Worked with OLG network resources and IBM\'s developers to install, configure and test IBM\'s new Satellite Connector, a lightweight tunnel that lets watsonx on IBM Cloud reach OLG\'s private data behind the firewall without exposing it to the public internet.'],
+    hadoop: ['OLG', 'Resolved the integration problems between the IBM InfoSphere tooling and the new Cloudera Hadoop cluster, including reading HDFS, Parquet and Hive data.'],
+    envs: ['OLG', 'Led a multi-environment model (development, test and staging) for the Siebel Customer Hub project, administering Red Hat Linux; Windows administration in the MGAM and eQube bingo gaming environments; a VMware-based environment for casino and gaming scheduling software.'],
+    framework: ['OLG', 'Designed and built a config-driven (YAML) Python framework on Cloudera AI that kept critical data element checks running while the primary tool was unavailable. Every check is a versioned configuration entry that can be reviewed and rerun.'],
+    workgroup: ['OLG', 'Member of domain working groups developing application standards alongside infrastructure planning.'],
+    devops: ['OLG', 'Worked with Data Architecture on DevOps practices, data contracts and deterministic data engineering.'],
+    model: ['OLG', 'Architected a three-layer control model: curated rules where risk is highest, automated completeness everywhere else, and observability across all critical data elements.'],
+    installs: ['OLG', 'Installed and upgraded core components across multiple non-production environments, and installed and troubleshot releases on critical project timelines.'],
+    sit: ['OLG', 'System integration tester for electronic bingo, diagnosing defects daily in custom and off-the-shelf software.'],
+    vendors: ['OLG', 'Kept environments and releases moving through two major vendor transitions, and was a working contact for IBM during the watsonx migration and Satellite Connector rollout.'],
+    observe: ['OLG', 'Built a monitoring layer in Python with z-score drift detection against a 30-day rolling baseline.'],
+    ml: ['OLG', 'Set up a machine learning model that learned weekend and holiday patterns in volumes and spend where z-scores raised false alerts, so alerts track what normal demand looks like for that kind of day.'],
+    portal: ['OLG', 'Architected a central results database and a results portal with drill-down to failed records, trends and alerts, giving owners one view of health across tools.'],
+    defect: ['OLG', 'On my own initiative, led an upgrade of the defect management platform for all testing teams, which let OLG retire a second vendor\'s tool and its costs.'],
+    handover: ['OLG', 'Wrote the documentation production support used to carry upgrades and releases into production, and stayed on standby or on the call while they were in progress.'],
+    infosphere: ['OLG', 'Retired Informatica Data Quality and moved data quality and metadata to IBM InfoSphere as OLG consolidated its data warehouses into a Cloudera data lake.'],
+    watsonx: ['OLG', 'Led the migration of governance content and data quality rules from on-premises IBM InfoSphere to SaaS IBM watsonx.data intelligence.'],
+    itil: ['OLG', 'Extensive experience with ITIL-based event, incident, access and problem management in ServiceNow; documented defects to cut resolution time.'],
+    teams: ['OLG', 'Arranged resources across security, infrastructure and vendor teams to get issues resolved on critical project timelines.'],
+    learn: ['OLG', 'Designed, built and wrote a reusable 17-lesson learning portal; it runs on Cloudera AI and is ready to move to an Azure Web App with little to no configuration change.'],
+    aidev: ['Projects', 'AI-assisted development with GitHub Copilot and MCP, and retrieval-augmented generation with FAISS.'],
+    lidar: ['Projects', 'FireSmart LiDAR risk map: a config-driven pipeline over 111 LiDAR tiles and 603 houses, with every threshold in one file so it can be tuned without touching code.'],
+    atlas: ['Projects', 'Water Source Evaluation Atlas: network routing over Ontario Road Network data to find the clusters of homes furthest from water, broken into five checkable steps.'],
+    budget: ['Community', 'Managed a ~$100,000 annual budget and ~$1M in OHSA-compliant equipment as Fire Chief, with major-project and vehicle replacement funds planned ahead.'],
+    lsb: ['Community', 'Led development of the Local Services Board budget for fire protection, recreation and emergency telecommunications under the Northern Services Boards Act.'],
+    chief: ['Community', 'Fire Chief for 11 years: led a 21-person volunteer department including four captains, setting priorities and expectations and coaching and developing members.'],
+    command: ['Community', 'Held incident command at fire, rescue, hazardous materials and medical incidents alongside the OPP, paramedic services and the Ministry of Natural Resources.'],
+    debrief: ['Community', 'Held weekly debriefs on every call, focused on what went well and what to improve. These were the main driver of change in the department.'],
+    instruct: ['Community', 'Planned and delivered training as an NFPA-qualified instructor, and helped coordinate pooled courses for 26 fire departments in the Algoma District.']
+  };
+  var FIT = [
+    ['Infrastructure architecture and design', 'Design complex infrastructure systems, developing architectural frameworks that integrate all infrastructure components, including cloud services.', ['satellite', 'hadoop', 'envs', 'framework']],
+    ['Design standards and design review', 'Support recommended practices and infrastructure design standards, and review and validate designs so they are scalable, reliable and secure.', ['workgroup', 'devops', 'model']],
+    ['Integration builds, configuration and suppliers', 'Contribute to system integration builds and testing, maintain configuration items and records, and serve as a routine point of contact for suppliers.', ['installs', 'sit', 'satellite', 'vendors']],
+    ['Performance through automation and monitoring', 'Maintain and optimize infrastructure service performance, using automation and monitoring of key metrics, and support the adoption of automated processes.', ['framework', 'observe', 'ml', 'portal']],
+    ['Process improvement, maintenance and updates', 'Recommend and implement improvements to processes and tools, and plan and implement infrastructure maintenance and updates.', ['defect', 'installs', 'handover', 'debrief']],
+    ['Capacity, demand and forecasting', 'Monitor and assess capacity, address shortfalls proactively, apply demand management, and engage in capacity modelling and forecasting.', ['ml', 'observe', 'envs']],
+    ['Cost-benefit and investment input', 'Conduct platform cost-benefit analyses, support cost management, and collect the information needed for investment appraisals.', ['defect', 'infosphere', 'budget', 'lsb']],
+    ['Lifecycle, migration and modernization', 'Lifecycle management, platform optimization and the adoption of emerging technologies to drive modernization of the infrastructure portfolio.', ['watsonx', 'infosphere', 'satellite', 'learn']],
+    ['Emerging technology and knowledge sharing', 'Monitor the external environment, assess emerging technologies, and contribute to reports, roadmaps and knowledge sharing.', ['aidev', 'ml', 'learn', 'lidar']],
+    ['ITIL operations and escalation leadership', 'Expert escalation for complex infrastructure issues, driving root cause analysis, risk mitigation and lasting fixes with architecture, security and operations teams.', ['itil', 'teams', 'handover', 'command']],
+    ['Technical guidance and mentoring', 'Autonomous expert judgment under broad direction, providing technical guidance and mentoring while ensuring quality and service reliability.', ['chief', 'instruct', 'debrief', 'learn']]
+  ];
+  var fitList = $('#fitList'), fitDetail = $('#fitDetail');
+  function renderFit(sel) {
+    fitList.innerHTML = FIT.map(function (r, i) {
+      return '<button type="button" role="tab" aria-selected="' + (i === sel) + '" data-i="' + i + '"><span>' + esc(r[0]) + '</span><span class="n">' + r[2].length + ' proof' + (r[2].length > 1 ? 's' : '') + '</span></button>';
+    }).join('');
+    var r = FIT[sel];
+    fitDetail.innerHTML = '<h3>' + esc(r[0]) + '</h3><p class="ask">The posting asks: ' + esc(r[1]) + '</p><ul class="ev">' +
+      r[2].map(function (k) { return '<li><span class="where">' + EV[k][0] + '</span><p>' + esc(EV[k][1]) + '</p></li>'; }).join('') + '</ul>';
+  }
+  fitList.addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (b) renderFit(+b.dataset.i);
+  });
+  fitList.addEventListener('keydown', function (e) {
+    if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+    var bs = $$('button', fitList), i = bs.indexOf(document.activeElement); if (i < 0) return;
+    e.preventDefault();
+    var n = (i + (e.key === 'ArrowDown' ? 1 : -1) + bs.length) % bs.length;
+    renderFit(n); $$('button', fitList)[n].focus();
+  });
+  renderFit(0);
+
+  /* ---------- hybrid connectivity stepper ---------- */
+  var HY = [
+    ['A connector agent inside the network', 'A lightweight agent runs on a host inside OLG\'s private network, next to the data it needs to reach. Installing and configuring it was joint work with OLG network resources.'],
+    ['The tunnel is opened from the inside', 'The agent opens an encrypted tunnel outbound to IBM Cloud. Because the connection starts from inside, the firewall needs no inbound openings and nothing on the private network is exposed to the public internet.'],
+    ['Only named endpoints are reachable', 'Each private data source watsonx needs is registered as a connector endpoint. The SaaS platform sees those endpoints, not the network behind them.'],
+    ['Requests ride back through the tunnel', 'When watsonx profiles data or runs a rule, the request travels down the existing tunnel to the agent, which forwards it to Hive or Impala on the Cloudera data lake and returns the result.'],
+    ['Test it end to end with the vendor', 'With IBM\'s developers, tested connectivity and query paths against the real sources before the migrated rules depended on them.']
+  ];
+  function setHy(i) {
+    $$('#hySteps button').forEach(function (b) { var on = +b.dataset.step === i; b.classList.toggle('is-on', on); b.setAttribute('aria-selected', on); });
+    $('#hySvg').dataset.step = i;
+    $('#hyPanel').innerHTML = '<h4>' + HY[i][0] + '</h4><p>' + HY[i][1] + '</p>';
+  }
+  if ($('#hySteps')) {
+    $('#hySteps').addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) setHy(+b.dataset.step); });
+    setHy(0);
+  }
+
+  /* ---------- observability lab (simulated) ---------- */
+  var N = 119, WARM = 35, START = Date.UTC(2026, 4, 4); // Monday 4 May 2026
+  var HOL = { 14: 'Victoria Day', 58: 'Canada Day', 91: 'Civic Holiday' };
+  var ANOM = { 51: 'Partial load', 78: 'Duplicate batch', 103: 'Saturday feed short' };
+  var series = (function () {
+    var s = 20261110;
+    function rnd() { s |= 0; s = s + 0x6D2B79F5 | 0; var t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }
+    var out = [];
+    for (var i = 0; i < N; i++) {
+      var d = i % 7, base = HOL[i] ? 150 : d === 5 ? 175 : d === 6 ? 120 : 100;
+      var v = base + (rnd() * 10 - 5);
+      if (i === 51) v = 58; if (i === 78) v = 150; if (i === 103) v = 105;
+      out.push(v);
+    }
+    return out;
+  })();
+  function median(a) { var b = a.slice().sort(function (x, y) { return x - y; }), m = b.length >> 1; return b.length % 2 ? b[m] : (b[m - 1] + b[m]) / 2; }
+  function detect(method) {
+    var res = [], resid = [];
+    for (var i = 0; i < N; i++) {
+      var x = series[i], exp = x, sd = 1;
+      if (method === 'z') {
+        var w = series.slice(Math.max(0, i - 30), i);
+        if (w.length >= 14) {
+          exp = w.reduce(function (a, b) { return a + b; }, 0) / w.length;
+          sd = Math.sqrt(w.reduce(function (a, b) { return a + (b - exp) * (b - exp); }, 0) / w.length);
+        }
+      } else {
+        var type = HOL[i] ? 'H' : i % 7, prior = [];
+        for (var j = i - 1; j >= 0 && prior.length < 6; j--) if ((HOL[j] ? 'H' : j % 7) === type) prior.push(series[j]);
+        if (prior.length) exp = median(prior);
+        var rr = resid.slice(-30).map(Math.abs);
+        sd = Math.max(rr.length ? 1.4826 * median(rr) : 0, 0.04 * exp);
+        resid.push(x - exp);
+      }
+      res.push({ i: i, x: x, exp: exp, score: (x - exp) / sd });
+    }
+    return res;
+  }
+  var lab = { method: 'z', k: 2 };
+  var fmtDate = function (i) { return new Date(START + i * 864e5).toLocaleDateString('en-CA', { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' }); };
+  function drawLab() {
+    var box = $('#labChart'); if (!box) return;
+    var res = detect(lab.method).slice(WARM);
+    var W = box.clientWidth, H = box.clientHeight, m = { l: 34, r: 12, t: 12, b: 24 };
+    var X = function (n) { return m.l + n * (W - m.l - m.r) / (res.length - 1); };
+    var Y = function (v) { return m.t + (1 - v / 200) * (H - m.t - m.b); };
+    var css = getComputedStyle(document.documentElement), c = function (n) { return css.getPropertyValue(n).trim(); };
+    var g = '';
+    [0, 50, 100, 150, 200].forEach(function (v) {
+      g += '<line x1="' + m.l + '" x2="' + (W - m.r) + '" y1="' + Y(v) + '" y2="' + Y(v) + '" stroke="' + c(v ? '--grid' : '--axis') + '"/>' +
+        '<text x="' + (m.l - 8) + '" y="' + (Y(v) + 4) + '" text-anchor="end">' + v + '</text>';
+    });
+    res.forEach(function (r, n) {
+      var d = new Date(START + r.i * 864e5);
+      if (d.getUTCDate() === 1 || n === 0) g += '<text x="' + X(n) + '" y="' + (H - 6) + '" text-anchor="' + (n ? 'middle' : 'start') + '">' + d.toLocaleDateString('en-CA', { month: 'short', day: 'numeric', timeZone: 'UTC' }) + '</text>';
+    });
+    var path = function (key) { return res.map(function (r, n) { return (n ? 'L' : 'M') + X(n).toFixed(1) + ' ' + Y(r[key]).toFixed(1); }).join(''); };
+    g += '<path d="' + path('exp') + '" fill="none" stroke="' + c('--muted') + '" stroke-width="1.5" stroke-dasharray="4 4"/>';
+    g += '<path class="ln" d="' + path('x') + '" fill="none" stroke="' + c('--s1') + '" stroke-width="2" stroke-linejoin="round"/>';
+    var alerts = 0, falses = 0, caught = 0, total = 0;
+    res.forEach(function (r, n) {
+      var flag = Math.abs(r.score) > lab.k, real = !!ANOM[r.i], x = X(n), y = Y(r.x);
+      r.flag = flag; if (real) total++;
+      if (flag) { alerts++; if (real) caught++; else falses++; }
+      if (flag && real) g += '<circle class="mk" cx="' + x + '" cy="' + y + '" r="6" fill="' + c('--good') + '" stroke="' + c('--surface') + '" stroke-width="2"/>';
+      else if (flag) g += '<circle class="mk" cx="' + x + '" cy="' + y + '" r="5.5" fill="' + c('--surface') + '" stroke="' + c('--warning') + '" stroke-width="2"/>';
+      else if (real) g += '<rect class="mkd" x="' + (x - 5) + '" y="' + (y - 5) + '" width="10" height="10" transform="rotate(45 ' + x + ' ' + y + ')" fill="' + c('--critical') + '" stroke="' + c('--surface') + '" stroke-width="2"/>';
+    });
+    g += '<line id="xh" y1="' + m.t + '" y2="' + (H - m.b) + '" stroke="' + c('--axis') + '" visibility="hidden"/>';
+    g += '<rect id="hit" x="' + m.l + '" y="0" width="' + (W - m.l - m.r) + '" height="' + H + '" fill="transparent"/>';
+    box.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '">' + g + '</svg>';
+    var ln = $('.ln', box);
+    if (ln && box.classList.contains('draw')) { var len = ln.getTotalLength(); ln.style.strokeDasharray = len; ln.style.strokeDashoffset = len; }
+    var hit = $('#hit', box), xh = $('#xh', box);
+    hit.addEventListener('pointermove', function (e) {
+      var b = box.getBoundingClientRect();
+      var n = Math.round((e.clientX - b.left - m.l) / ((W - m.l - m.r) / (res.length - 1)));
+      n = Math.max(0, Math.min(res.length - 1, n)); var r = res[n];
+      xh.setAttribute('x1', X(n)); xh.setAttribute('x2', X(n)); xh.setAttribute('visibility', 'visible');
+      var state = r.flag ? (ANOM[r.i] ? 'Alert: real anomaly caught' : 'Alert: false alarm') : (ANOM[r.i] ? 'No alert: real anomaly missed' : 'No alert');
+      showTip('<b>' + fmtDate(r.i) + (HOL[r.i] ? ' · ' + HOL[r.i] : '') + '</b><span>Volume ' + r.x.toFixed(0) + ' · expected ' + r.exp.toFixed(0) + '<br>Score ' + r.score.toFixed(1) + 'σ · ' + state + (ANOM[r.i] ? ' (' + ANOM[r.i].toLowerCase() + ')' : '') + '</span>', e.clientX, e.clientY);
+    });
+    hit.addEventListener('pointerleave', function () { xh.setAttribute('visibility', 'hidden'); hideTip(); });
+
+    $('#labStats').innerHTML =
+      '<div class="stat"><b>' + alerts + '</b><span>alerts raised in 12 weeks</span></div>' +
+      '<div class="stat"><b>' + falses + '</b><span>false alerts</span></div>' +
+      '<div class="stat"><b>' + caught + ' of ' + total + '</b><span>real anomalies caught</span></div>';
+    var note;
+    if (lab.method === 'z') {
+      note = falses ? 'The rolling baseline treats ordinary Saturday peaks and holidays as unusual: ' + falses + ' of ' + alerts + ' alerts are false.' : 'At this threshold the Saturday alerts go quiet.';
+      if (caught < total) note += ' It also misses ' + (total - caught) + ' real ' + (total - caught > 1 ? 'anomalies' : 'anomaly') + ', because weekend spikes inflate the spread it measures against.';
+    } else {
+      note = 'The model compares each day with what that kind of day normally looks like. Weekends and holidays stop raising alerts' + (caught === total ? ', and all ' + total + ' real anomalies are caught, including a Saturday that came in at weekday volume.' : '.');
+      if (falses) note += ' ' + falses + ' false alert' + (falses > 1 ? 's remain' : ' remains') + ' at this threshold.';
+    }
+    $('#labNote').textContent = note;
+  }
+  segmented($('#methodSeg'), 'method', function (v) { lab.method = v; drawLab(); });
+  $('#kRange').addEventListener('input', function (e) { lab.k = +e.target.value; $('#kOut').textContent = lab.k.toFixed(1); drawLab(); });
+  var rz; window.addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(drawLab, 120); });
+  drawLab();
+
+  /* ---------- LiDAR dashboard (real aggregates, 2024 corridor run) ---------- */
+  var RATINGS = ['Low', 'Moderate', 'High', 'Extreme'], ICON = { Low: '●', Moderate: '▲', High: '◆', Extreme: '■' };
+  var L = {
+    n: 603,
+    counts: { overall: [155, 168, 183, 97], z1: [172, 133, 182, 116], z2: [274, 199, 117, 13] },
+    label: { overall: 'Overall rating', z1: 'Zone 1 rating, 1.5–10 m from the wall', z2: 'Zone 2 rating, 10–30 m from the wall' },
+    hist: [72, 55, 54, 68, 66, 76, 75, 57, 44, 36],
+    drivers: { z1: { c: [10.2, 29.2, 48.3, 63.3], l: [7.7, 15.2, 21.0, 31.2] }, z2: { c: [27.5, 44.6, 53.0, 65.1], l: [13.7, 20.5, 22.8, 29.8] } },
+    flags: [['Branches over the roof', 220], ['Outbuilding within 10 m', 155], ['Steep slope, over 15°', 25]]
+  };
+  var pct = function (v) { return Math.round(v / L.n * 100); };
+  function buildLidar() {
+    $('#ratingBars').innerHTML = RATINGS.map(function (r) {
+      return '<div class="hbar" tabindex="0" data-r="' + r + '"><span class="lab-t"><span class="ico" aria-hidden="true">' + ICON[r] + '</span>' + r + '</span><div class="track"><div class="fill r-' + r + '"></div></div><span class="val"></span></div>';
+    }).join('');
+    var max = Math.max.apply(null, L.hist);
+    $('#hist').innerHTML = L.hist.map(function (v, i) {
+      return '<div class="col" tabindex="0" data-i="' + i + '"><span>' + v + '</span><i data-h="' + (v / max * 82) + '"></i></div>';
+    }).join('');
+    $$('#hist .col').forEach(function (el) {
+      var i = +el.dataset.i;
+      bindTip(el, function () { return '<b>Score ' + i * 10 + ' to ' + (i * 10 + 10) + '</b><span>' + L.hist[i] + ' houses · ' + pct(L.hist[i]) + '% of 603</span>'; });
+    });
+    $('#driverBars').innerHTML = RATINGS.map(function (r) {
+      return '<div class="grow" tabindex="0"><span class="lab-t">' + r + '</span><div class="pair">' +
+        '<div class="line"><div class="track"><div class="fill c"></div></div><span class="v vc"></span></div>' +
+        '<div class="line"><div class="track"><div class="fill l"></div></div><span class="v vl"></span></div></div></div>';
+    }).join('');
+    $('#flagMeters').innerHTML = L.flags.map(function (f) {
+      return '<div class="meter"><div class="top"><span>' + f[0] + '</span><b>' + f[1] + ' · ' + pct(f[1]) + '%</b></div><div class="track"><div class="fill" data-w="' + (f[1] / L.n * 100) + '"></div></div></div>';
+    }).join('');
+    $('#lidarTable').innerHTML = '<table><thead><tr><th>Rating</th><th>Overall</th><th>Zone 1</th><th>Zone 2</th><th>Z1 canopy %</th><th>Z1 ladder %</th><th>Z2 canopy %</th><th>Z2 ladder %</th></tr></thead><tbody>' +
+      RATINGS.map(function (r, i) {
+        return '<tr><td>' + r + '</td><td>' + L.counts.overall[i] + '</td><td>' + L.counts.z1[i] + '</td><td>' + L.counts.z2[i] + '</td><td>' + L.drivers.z1.c[i] + '</td><td>' + L.drivers.z1.l[i] + '</td><td>' + L.drivers.z2.c[i] + '</td><td>' + L.drivers.z2.l[i] + '</td></tr>';
+      }).join('') + '</tbody></table>';
+  }
+  var zone = 'overall', lidarShown = false;
+  function updateLidar() {
+    var cs = L.counts[zone], max = Math.max.apply(null, L.counts.z2);
+    $('#ratingSub').textContent = L.label[zone] + ', 603 houses';
+    $$('#ratingBars .hbar').forEach(function (el, i) {
+      $('.fill', el).style.width = (lidarShown ? cs[i] / max * 100 : 0) + '%';
+      $('.val', el).innerHTML = cs[i] + '<small>' + pct(cs[i]) + '%</small>';
+      el.onpointermove = function (e) { showTip('<b>' + RATINGS[i] + '</b><span>' + cs[i] + ' houses · ' + pct(cs[i]) + '% · ' + L.label[zone] + '</span>', e.clientX, e.clientY); };
+      el.onpointerleave = hideTip;
+    });
+    var hi = pct(cs[2] + cs[3]);
+    $('#ratingNote').textContent = zone === 'overall'
+      ? hi + '% of houses rate High or Extreme overall. Compare Zone 1 and Zone 2 to see where that comes from.'
+      : zone === 'z1' ? hi + '% rate High or Extreme within 10 m of the wall. This is the ring an owner can change in a weekend.'
+        : 'Only ' + hi + '% rate High or Extreme at 10 to 30 m. The hazard sits close to the house, not out in the bush.';
+    var dz = zone === 'z2' ? 'z2' : 'z1', d = L.drivers[dz];
+    $('#driverSub').textContent = 'Mean cover in ' + (dz === 'z1' ? 'Zone 1 (1.5–10 m)' : 'Zone 2 (10–30 m)') + ', by overall rating';
+    $$('#driverBars .grow').forEach(function (el, i) {
+      $('.fill.c', el).style.width = (lidarShown ? d.c[i] : 0) + '%'; $('.fill.l', el).style.width = (lidarShown ? d.l[i] : 0) + '%';
+      $('.vc', el).textContent = d.c[i].toFixed(1) + '%'; $('.vl', el).textContent = d.l[i].toFixed(1) + '%';
+      el.onpointermove = function (e) { showTip('<b>' + RATINGS[i] + ' houses</b><span>Canopy cover ' + d.c[i] + '%<br>Ladder fuel ' + d.l[i] + '%</span>', e.clientX, e.clientY); };
+      el.onpointerleave = hideTip;
+    });
+    $$('#hist .col i').forEach(function (el) { el.style.height = (lidarShown ? el.dataset.h : 0) + '%'; });
+    $$('#flagMeters .fill').forEach(function (el) { el.style.width = (lidarShown ? el.dataset.w : 0) + '%'; });
+  }
+  buildLidar(); updateLidar();
+  segmented($('#zoneSeg'), 'zone', function (v) { zone = v; updateLidar(); });
+
+  /* ---------- atlas steps ---------- */
+  var STEPS = [
+    ['Inventory what exists', 'Mapped 20 water locations and the fire hall, keeping the one existing hydrant separate from drafting sites.'],
+    ['Map real access', 'Combined Ontario Road Network data with hand-traced access routes that the official data misses.'],
+    ['Estimate travel time', 'Modelled drive times with paved and gravel speeds plus turnout delay, colour-coded by minutes to arrival.'],
+    ['Plan future supply', 'Explored sites for roughly 2,000-gallon underground cisterns with tanker drafting connections.'],
+    ['Find the gaps', 'Routed every building footprint to the nearest hydrant to find clusters of homes far from water, with results exported to CSV and JSON.']
+  ];
+  function setStep(i) {
+    $$('#steps button').forEach(function (b) { var on = +b.dataset.step === i; b.classList.toggle('is-on', on); b.setAttribute('aria-selected', on); });
+    $('#stepPanel').innerHTML = '<h4>' + STEPS[i][0] + '</h4><p>' + STEPS[i][1] + '</p>';
+  }
+  $('#steps').addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) setStep(+b.dataset.step); });
+  setStep(0);
+
+  /* ---------- timeline ---------- */
+  var T0 = 1995, T1 = 2027;
+  var TL = [
+    ['OLG', 1, [[2007.33, 2009.25, 'Voice Network Analyst', 'May 2007 – Apr 2009'], [2009.25, 2011.33, 'Quality Assurance Analyst', 'Apr 2009 – May 2011'], [2011.33, 2013.75, 'Environment Provisioning Analyst', 'May 2011 – Oct 2013'], [2013.75, 2026.8, 'Senior Data Quality Analyst', 'Oct 2013 – Oct 2026']]],
+    ['Searchmont Volunteer Fire Dept', 2, [[1995, 2012, 'Firefighter', '1995 – 2012'], [2012, 2023, 'Fire Chief', '2012 – 2023 · 21 volunteers']]],
+    ['Local Services Board', 2, [[2013, 2023, 'Secretary', '2013 – 2023 · annual budget development']]],
+    ['Algoma Mutual Aid Association', 2, [[2016, 2023, 'Secretary', '2016 – 2023 · 26 fire departments']]],
+    ['Superior Community Skatepark Assoc.', 2, [[2002, 2020, 'President', '2002 – 2020 · over $400,000 raised']]],
+    ['Education', 3, [[2004, 2006, 'Sault College', 'General Arts and Science Diploma, 2004 – 2006'], [2006, 2009, 'Algoma University', 'B.Sc. Mathematics and Computer Science, 2006 – 2009']]]
+  ];
+  var P = function (y) { return (y - T0) / (T1 - T0) * 100; };
+  var grid = 'background-size:' + (5 / (T1 - T0) * 100) + '% 100%';
+  $('#timeline').innerHTML = TL.map(function (row, ri) {
+    return '<div class="tl-row"><span class="name">' + row[0] + '</span><div class="tl-track" style="' + grid + '">' +
+      row[2].map(function (s, si) {
+        return '<button type="button" class="tl-seg k' + row[1] + '" data-r="' + ri + '" data-s="' + si + '" style="left:' + P(s[0]) + '%;width:calc(' + (P(s[1]) - P(s[0])) + '% - 2px)" aria-label="' + esc(s[2] + ', ' + s[3]) + '"></button>';
+      }).join('') + '</div></div>';
+  }).join('') + '<div class="tl-row tl-axis-row"><span class="name"></span><div class="tl-axis">' +
+    [1995, 2000, 2005, 2010, 2015, 2020, 2025].map(function (y) { return '<span style="left:' + P(y) + '%">' + y + '</span>'; }).join('') + '</div></div>';
+  $$('.tl-seg').forEach(function (el) {
+    var s = TL[+el.dataset.r][2][+el.dataset.s];
+    bindTip(el, function () { return '<b>' + s[2] + '</b><span>' + TL[+el.dataset.r][0] + '<br>' + s[3] + '</span>'; });
+  });
+
+  /* ---------- skills ---------- */
+  var SK = {
+    'Platforms & cloud': ['IBM watsonx.data intelligence on IBM Cloud', 'IBM Satellite Connector', 'Cloudera Data Platform', 'Cloudera AI Workbench', 'IBM InfoSphere', 'Microsoft Purview', 'Azure Data Factory'],
+    'OS & virtualization': ['Red Hat Linux administration', 'Windows administration', 'VMware-based environments', 'Dev, test and staging environments'],
+    'Operations (ITIL)': ['ServiceNow', 'Event management', 'Incident management', 'Access management', 'Problem management', 'Root cause analysis', 'Release installs and upgrades', 'Production handover documentation', 'SIT and UAT'],
+    'Automation & monitoring': ['Config-driven YAML pipelines', 'Python automation', 'Drift detection, 30-day rolling baseline', 'Seasonal ML anomaly detection', 'Results portal and alerts', 'Git and GitHub Pages'],
+    'Networking': ['Private connectivity to cloud services', 'Firewall-aware integration', 'Voice network support', 'Network routing (GIS)'],
+    'Data platforms': ['Hadoop (HDFS)', 'Parquet', 'Hive', 'Impala', 'Data contracts', 'DAMA-DMBOK', 'COBIT'],
+    'AI': ['Machine learning for seasonal patterns', 'GitHub Copilot', 'MCP', 'RAG with FAISS'],
+    'Languages': ['Python', 'SQL (MS SQL Server, Impala, Hive, DB2, Sybase)', 'JavaScript', 'HTML/CSS', 'Flask', 'Agile/Scrum']
+  };
+  var cats = Object.keys(SK);
+  $('#skillSeg').innerHTML = '<button type="button" data-cat="all" aria-pressed="true">All</button>' + cats.map(function (c) { return '<button type="button" data-cat="' + c + '" aria-pressed="false">' + c + '</button>'; }).join('');
+  $('#skillTags').innerHTML = cats.map(function (c) { return SK[c].map(function (t) { return '<span class="tag" data-cat="' + c + '">' + esc(t) + '</span>'; }).join(''); }).join('');
+  segmented($('#skillSeg'), 'cat', function (c) { $$('#skillTags .tag').forEach(function (t) { t.classList.toggle('dim', c !== 'all' && t.dataset.cat !== c); }); });
+
+  /* ---------- contact (mailto only; nothing is sent from the page) ---------- */
+  $('#contactForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = e.target, wants = $$('input[name=want]:checked', f).map(function (i) { return i.value; });
+    var body = 'Name: ' + f.name.value + '\nOrganization: ' + f.org.value + '\nRequesting: ' + (wants.join(', ') || 'n/a') + '\n\n' + f.msg.value;
+    window.location.href = 'mailto:carrie.aiden.travis@gmail.com?subject=' + encodeURIComponent('Infrastructure portfolio request from ' + f.name.value) + '&body=' + encodeURIComponent(body);
+  });
+
+  /* ---------- scroll: nav spy, count-up, chart reveal ---------- */
+  var links = $$('.nav a');
+  var spy = new IntersectionObserver(function (es) {
+    es.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      links.forEach(function (a) {
+        var on = a.getAttribute('href') === '#' + en.target.id; a.classList.toggle('is-active', on);
+        if (on && window.innerWidth <= 900) a.parentNode.scrollTo({ left: a.offsetLeft - a.parentNode.offsetLeft - 16, behavior: reduced ? 'auto' : 'smooth' });
+      });
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  $$('main section').forEach(function (s) { spy.observe(s); });
+
+  var once = new IntersectionObserver(function (es) {
+    es.forEach(function (en) {
+      if (!en.isIntersecting) return; once.unobserve(en.target);
+      if (en.target.id === 'labChart') {
+        var box = en.target; box.classList.add('seen');
+        if (!reduced) { box.classList.add('draw'); drawLab(); setTimeout(function () { box.classList.remove('draw'); drawLab(); }, 2700); }
+        return;
+      }
+      if (en.target.id === 'timeline') { en.target.classList.add('in'); return; }
+      if (en.target.id === 'ratingBars') { lidarShown = true; updateLidar(); return; }
+      var el = en.target, end = +el.dataset.count; if (reduced) return;
+      var t0 = performance.now(); setTimeout(function () { el.textContent = end; }, 1300);
+      (function tick(t) { var p = Math.min(1, (t - t0) / 900); el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3))); if (p < 1 && t - t0 < 1250) requestAnimationFrame(tick); })(t0);
+    });
+  }, { threshold: 0.3 });
+  $$('[data-count]').forEach(function (el) { once.observe(el); });
+  once.observe($('#ratingBars')); once.observe($('#labChart')); once.observe($('#timeline'));
+  $$('.tl-seg').forEach(function (el) { el.style.setProperty('--r', el.dataset.r); el.style.setProperty('--s', el.dataset.s); });
+
+  /* ---------- FireSmart banner: loop while on screen, with a pause control ---------- */
+  var fs = $('#fsBanner'), fsBtn = $('#fsToggle');
+  if (fs && fsBtn && !reduced) {
+    fsBtn.hidden = false;
+    fs.addEventListener('animationend', function (e) {
+      if (e.animationName !== 'fsClock') return;
+      fs.classList.remove('run'); void fs.offsetWidth; fs.classList.add('run');
+    });
+    new IntersectionObserver(function (es) {
+      es.forEach(function (en) { fs.classList.toggle('off', !en.isIntersecting); if (en.isIntersecting) fs.classList.add('run'); });
+    }, { threshold: 0.15 }).observe(fs);
+    fsBtn.addEventListener('click', function () {
+      var p = fs.classList.toggle('paused');
+      fsBtn.setAttribute('aria-pressed', p); fsBtn.textContent = p ? 'Play' : 'Pause';
+    });
+  }
+
+  /* ---------- FireSmart value tile: count up and build the bar once, when scrolled to ---------- */
+  var fsT = $('#fsTotal'), fsN = $('#fsTotalNum');
+  if (fsT && fsN && !reduced) {
+    new IntersectionObserver(function (es, ob) {
+      es.forEach(function (en) {
+        if (!en.isIntersecting) return; ob.disconnect(); fsT.classList.add('in');
+        var end = +fsN.textContent, t0 = performance.now();
+        setTimeout(function () { fsN.textContent = end.toFixed(1); }, 1700);
+        (function tick(t) { var p = Math.min(1, (t - t0) / 1400); fsN.textContent = (end * (1 - Math.pow(1 - p, 3))).toFixed(1); if (p < 1 && t - t0 < 1650) requestAnimationFrame(tick); })(t0);
+      });
+    }, { threshold: 0.4 }).observe(fsT);
+  }
+  if (fsT) {
+    var FSG = [
+      ['Homes and cottages', '$36.4M · 365 properties · 73% of assessed value'],
+      ['Vacant land', '$9.6M · 313 parcels · 19% of assessed value'],
+      ['Ski resort', '$2.9M · 3 parcels · 6% of assessed value'],
+      ['Commercial, community and other', '$1.0M · 30 properties · 2% of assessed value']
+    ];
+    var fsSegs = $$('.fs-total-bar i', fsT), fsParts = $$('.fs-part', fsT);
+    var fsHot = function (g) {
+      fsT.classList.toggle('has-hot', g >= 0);
+      fsSegs.forEach(function (el, i) { el.classList.toggle('hot', i === g); });
+      fsParts.forEach(function (el, i) { el.classList.toggle('hot', i === g); });
+    };
+    [fsSegs, fsParts].forEach(function (list) {
+      list.forEach(function (el, g) {
+        el.onpointermove = function (e) { fsHot(g); showTip('<b>' + FSG[g][0] + '</b><span>' + FSG[g][1] + '</span>', e.clientX, e.clientY); };
+        el.onpointerleave = function () { fsHot(-1); hideTip(); };
+      });
+    });
+  }
+
+  /* ---------- motion: scroll reveal and cursor glow ---------- */
+  if (!reduced) {
+    var rv = new IntersectionObserver(function (es) {
+      es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); rv.unobserve(en.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
+    $$('main section:not(.hero) .sec-head, main section:not(.hero) .card, .panel, .more, #skills .filters').forEach(function (el) {
+      var sibs = Array.prototype.filter.call(el.parentNode.children, function (c) { return c.matches('.card, .panel'); });
+      el.style.setProperty('--d', (Math.max(0, sibs.indexOf(el)) % 6) * 0.07 + 's');
+      el.classList.add('rv'); rv.observe(el);
+    });
+    document.addEventListener('pointermove', function (e) {
+      var t = e.target.closest && e.target.closest('.tile, .work, .panel, .stat, .fs-total'); if (!t) return;
+      var r = t.getBoundingClientRect();
+      t.style.setProperty('--mx', (e.clientX - r.left) + 'px'); t.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    }, { passive: true });
+  }
+})();
+
+/* ---------- Ingestion Protocol game banner ---------- */
+(function () {
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var card = document.getElementById('portfolioGameAd');
+  if (!card) return;
+
+  // 1. Falling data-quality tokens behind the banner (runs only while on screen)
+  var canvas = document.getElementById('portfolioGameCanvas');
+  if (canvas && !reduced) {
+    var ctx = canvas.getContext('2d');
+    var tokens = ['NULL', 'DIRTY_ROW', 'REGEX_FAIL', 'PII_LEAK', 'SSN_DETECTED', 'SCHEMA_DRIFT', 'MDM_CLASH', '0x00_CORRUPT'];
+    var drops = [], visible = false, raf = 0, last = 0;
+    var resize = function () {
+      canvas.width = card.offsetWidth; canvas.height = card.offsetHeight;
+      var n = Math.ceil(canvas.width / 90);
+      while (drops.length < n) drops.push(Math.random() * -100);
+      drops.length = n;
+    };
+    var draw = function (ts) {
+      raf = visible ? requestAnimationFrame(draw) : 0;
+      if (ts - last < 33) return;
+      last = ts;
+      ctx.fillStyle = 'rgba(8, 12, 20, 0.2)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#00ff88';
+      ctx.font = '10px monospace';
+      for (var i = 0; i < drops.length; i++) {
+        ctx.fillText(tokens[Math.floor(Math.random() * tokens.length)], i * 90, drops[i]);
+        drops[i] += 8;
+        if (drops[i] > canvas.height && Math.random() > 0.96) drops[i] = 0;
+      }
+    };
+    resize();
+    window.addEventListener('resize', resize);
+    new IntersectionObserver(function (es) {
+      visible = es[0].isIntersecting && !document.hidden;
+      if (visible && !raf) raf = requestAnimationFrame(draw);
+    }).observe(card);
+  }
+
+  // 2. Cycling alert taglines
+  var lines = [
+    '[!] 42 LEGACY MAINFRAMES BURNING',
+    '[!] DIRTY DATA HAS BREACHED THE BUFFER',
+    '[!] CAN YOU DEFEND THE GOLDEN RECORD?',
+    '[!] UNMASKED PII LEAKS DETECTED IN NOTES',
+    '[!] THE AUDITORS ARE AT THE GATES'
+  ];
+  var idx = 0, tag = document.getElementById('gameAdTagline');
+  if (tag && !reduced) {
+    setInterval(function () {
+      idx = (idx + 1) % lines.length;
+      tag.style.opacity = '0';
+      setTimeout(function () { tag.textContent = lines[idx]; tag.style.opacity = '1'; }, 200);
+    }, 3200);
+  }
+
+  // 3. Sound preview (off until the visitor turns it on) and auto-mute
+  var actx = null, on = false, timer = null, droneGain = null, drone = null;
+  var btn = document.getElementById('gameAdSoundBtn');
+  var icon = document.getElementById('gameAdSoundIcon');
+  var label = document.getElementById('gameAdSoundLabel');
+
+  function setUi(state) {
+    if (!btn) return;
+    btn.classList.toggle('active', state);
+    btn.setAttribute('aria-pressed', state ? 'true' : 'false');
+    icon.textContent = state ? '🔊' : '🔇';
+    label.textContent = state ? 'SOUND ON' : 'SOUND OFF';
+  }
+
+  function startAudio() {
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    if (!actx) actx = new AC();
+    if (actx.state === 'suspended') actx.resume();
+
+    var now = actx.currentTime;
+    var osc = actx.createOscillator(), filter = actx.createBiquadFilter();
+    droneGain = actx.createGain();
+    osc.type = 'sawtooth'; osc.frequency.setValueAtTime(55, now);
+    filter.type = 'lowpass'; filter.frequency.setValueAtTime(140, now);
+    droneGain.gain.setValueAtTime(0.01, now);
+    droneGain.gain.linearRampToValueAtTime(0.18, now + 1.5);
+    osc.connect(filter); filter.connect(droneGain); droneGain.connect(actx.destination);
+    osc.start(now);
+    drone = osc;
+
+    var step = 0;
+    timer = setInterval(function () {
+      if (!on) return;
+      if (step++ % 2) return;
+      var t = actx.currentTime, k = actx.createOscillator(), g = actx.createGain();
+      k.type = 'sine';
+      k.frequency.setValueAtTime(110, t);
+      k.frequency.exponentialRampToValueAtTime(32, t + 0.12);
+      g.gain.setValueAtTime(0.3, t);
+      g.gain.exponentialRampToValueAtTime(0.001, t + 0.16);
+      k.connect(g); g.connect(actx.destination);
+      k.start(t); k.stop(t + 0.18);
+    }, 280);
+  }
+
+  function stopAudio() {
+    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    if (timer) { clearInterval(timer); timer = null; }
+    if (droneGain && actx) {
+      var g = droneGain, d = drone;
+      droneGain = null; drone = null;
+      g.gain.cancelScheduledValues(actx.currentTime);
+      g.gain.setValueAtTime(g.gain.value, actx.currentTime);
+      g.gain.linearRampToValueAtTime(0.001, actx.currentTime + 0.4);
+      setTimeout(function () { try { d.stop(); } catch (err) {} }, 500);
+    }
+  }
+
+  function speak() {
+    if (!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    var utt = new SpeechSynthesisUtterance('Alert. Ingestion Gatekeeper online. Can you stop dirty data from corrupting the lakehouse? Take your post.');
+    utt.rate = 1.0; utt.pitch = 0.88;
+    var voice = window.speechSynthesis.getVoices().filter(function (v) {
+      return v.lang.indexOf('en') === 0 && /David|Natural|Google/.test(v.name);
+    })[0];
+    if (voice) utt.voice = voice;
+    window.speechSynthesis.speak(utt);
+  }
+
+  function turnOff() { if (on) { on = false; setUi(false); stopAudio(); } }
+
+  if (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault(); e.stopPropagation();
+      if (on) { turnOff(); return; }
+      on = true; setUi(true); startAudio(); speak();
+    });
+  }
+  // Silence the preview when the visitor opens the game or leaves the tab
+  card.addEventListener('click', function (e) { if (!e.target.closest('#gameAdSoundBtn')) turnOff(); });
+  document.addEventListener('visibilitychange', function () { if (document.hidden) turnOff(); });
+})();

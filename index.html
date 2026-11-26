@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="en-CA" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Travis McCormack | Infrastructure, Platform Modernization and Automation</title>
+<meta name="description" content="Portfolio of Travis McCormack: nearly 20 years on OLG's platforms across environments, operating systems, SaaS migration, automation and monitoring, with live project dashboards and maps.">
+<meta property="og:title" content="Travis McCormack | Infrastructure Portfolio">
+<meta property="og:description" content="Platform modernization, automation, monitoring and technical leadership. Project dashboards and live maps.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://travis-mccormack-infrastructure.net/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231a1a19'/%3E%3Crect x='7' y='8' width='18' height='4' rx='1.5' fill='%233987e5'/%3E%3Crect x='7' y='14' width='18' height='4' rx='1.5' fill='%233987e5'/%3E%3Crect x='7' y='20' width='18' height='4' rx='1.5' fill='%23199e70'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css?v=1">
+<script>
+  try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+</head>
+<body>
+<a class="skip" href="#overview">Skip to content</a>
+
+<aside class="side" aria-label="Site">
+  <a class="brand" href="#overview">
+    <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span><strong>Travis McCormack</strong><small>Infrastructure portfolio</small></span>
+  </a>
+  <nav class="nav" aria-label="Sections">
+    <a href="#overview" class="is-active"><span>01</span>Overview</a>
+    <a href="#fit"><span>02</span>Role fit</a>
+    <a href="#platforms"><span>03</span>Platforms &amp; operations</a>
+    <a href="#hybrid"><span>04</span>Hybrid connectivity</a>
+    <a href="#lab"><span>05</span>Monitoring lab</a>
+    <a href="#projects"><span>06</span>Config-driven projects</a>
+    <a href="#leadership"><span>07</span>Incident leadership</a>
+    <a href="#game" class="nav-game"><span>08</span>Interactive game</a>
+    <a href="#skills"><span>09</span>Skills &amp; education</a>
+    <a href="#contact"><span>10</span>Contact</a>
+  </nav>
+  <div class="side-foot">
+    <span class="dot" aria-hidden="true"></span> Searchmont, Ontario<br>
+    Toronto or Sault Ste. Marie, onsite
+  </div>
+</aside>
+
+<div class="main">
+  <header class="topbar">
+    <div class="lens">
+      <span class="lens-label">Applying for</span>
+      <span class="role-pill">Infrastructure Engineering Level 3 · R26_00676</span>
+    </div>
+    <button type="button" class="icon-btn" id="themeBtn" aria-label="Switch between dark and light theme">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.5 0-.9-.1-1.4A7 7 0 0 1 12 3z" fill="currentColor"/></svg>
+      <span>Theme</span>
+    </button>
+  </header>
+
+  <main>
+    <!-- 01 OVERVIEW -->
+    <section id="overview" class="hero">
+      <div class="hero-top">
+      <div class="hero-text">
+      <p class="eyebrow">Platform modernization · Automation · Monitoring · Technical leadership</p>
+      <h1>I keep critical platforms running while they are being modernized.</h1>
+      <p class="lede">Nearly 20 years at the Ontario Lottery and Gaming Corporation, on the platforms behind the business from several sides: the voice network, development, test and staging environments on Red Hat Linux, Windows and VMware, and for the past decade the data quality and metadata platforms on Cloudera and IBM watsonx. I led the move from on-premises to SaaS, kept critical services running through a platform outage, and built the automation and monitoring that catch problems early. For 11 of those years I also held incident command as Fire Chief.</p>
+      <div class="cta">
+        <a class="btn primary" href="#fit">See the role fit</a>
+        <a class="btn" href="#hybrid">How the hybrid tunnel works</a>
+        <a class="btn" href="#lab">Try the monitoring lab</a>
+      </div>
+      <p class="context">This site supports my application to OLG for Infrastructure Engineering Level 3 (R26_00676) on the Infrastructure Modernization team.</p>
+      </div>
+      <figure class="hero-photo">
+        <img src="images/travis.webp" alt="Travis McCormack, arms crossed, standing on one leg" width="1122" height="1402">
+      </figure>
+      </div>
+
+      <div class="tiles" aria-label="Career figures">
+        <div class="tile"><div class="tile-k">At OLG</div><div class="tile-v"><span data-count="19">19</span><small>+ years</small></div><div class="tile-d">Voice network, environments, QA and data platforms, 2007 to 2026</div></div>
+        <div class="tile"><div class="tile-k">Platforms run</div><div class="tile-v"><span data-count="3">3</span><small>OS stacks</small></div><div class="tile-d">Red Hat Linux, Windows and VMware-based environments</div></div>
+        <div class="tile"><div class="tile-k">Modernization</div><div class="tile-v"><span data-count="2">2</span><small>vendor tools retired</small></div><div class="tile-d">Plus the migration from on-premises to SaaS watsonx</div></div>
+        <div class="tile"><div class="tile-k">Monitoring</div><div class="tile-v"><span data-count="30">30</span><small>day baseline</small></div><div class="tile-d">Drift detection, then a seasonal model to cut false alerts</div></div>
+        <div class="tile"><div class="tile-k">Incident command</div><div class="tile-v"><span data-count="11">11</span><small>years</small></div><div class="tile-d">Fire Chief, 21 volunteers and four captains</div></div>
+        <div class="tile"><div class="tile-k">Automation</div><div class="tile-v"><span data-count="111">111</span><small>LiDAR tiles</small></div><div class="tile-d">Processed by one config-driven pipeline</div></div>
+      </div>
+    </section>
+
+    <!-- 02 ROLE FIT -->
+    <section id="fit">
+      <div class="sec-head">
+        <p class="eyebrow">02 · Role fit</p>
+        <h2>What the role asks for, and where I have done it</h2>
+        <p class="sub">Each row is an accountability or requirement from the Infrastructure Engineering Level 3 posting. Select one to see the evidence behind it.</p>
+      </div>
+      <div class="fit card">
+        <div class="fit-list" id="fitList" role="tablist" aria-label="Accountabilities"></div>
+        <div class="fit-detail" id="fitDetail" role="tabpanel" aria-live="polite"></div>
+      </div>
+      <noscript><p class="sub">Turn on JavaScript to use the interactive role-fit matrix and charts.</p></noscript>
+    </section>
+
+    <!-- 03 PLATFORMS -->
+    <section id="platforms">
+      <div class="sec-head">
+        <p class="eyebrow">03 · Platforms &amp; operations</p>
+        <h2>Work on OLG's platforms, from environments to SaaS</h2>
+        <p class="sub">Senior Data Quality Analyst, October 2013 to October 2026. Environment Provisioning Analyst, QA Analyst and Voice Network Analyst from May 2007.</p>
+      </div>
+
+      <div class="grid g3">
+        <article class="card work">
+          <span class="chip">Migration &amp; lifecycle</span>
+          <h3>On-premises to SaaS</h3>
+          <p>Led the migration of governance content and data quality rules from on-premises IBM InfoSphere to SaaS IBM watsonx.data intelligence on IBM Cloud.</p>
+        </article>
+        <article class="card work">
+          <span class="chip">Cloud networking</span>
+          <h3>A secure tunnel to private data</h3>
+          <p>With OLG network resources and IBM's developers, installed, configured and tested IBM's new Satellite Connector so watsonx on IBM Cloud could reach data behind the firewall without exposing it to the internet.</p>
+        </article>
+        <article class="card work">
+          <span class="chip">Systems integration</span>
+          <h3>Old tools on a new cluster</h3>
+          <p>Retired Informatica Data Quality as OLG consolidated its warehouses into a Cloudera data lake, and resolved the integration problems between InfoSphere and the new Hadoop cluster: HDFS, Parquet and Hive.</p>
+        </article>
+        <article class="card work">
+          <span class="chip">Environments</span>
+          <h3>Linux, Windows and VMware</h3>
+          <p>Administered Red Hat Linux for the Siebel Customer Hub environments, Windows in the MGAM and eQube bingo gaming environments, and a VMware-based environment for casino and gaming scheduling software.</p>
+        </article>
+        <article class="card work">
+          <span class="chip">Builds &amp; releases</span>
+          <h3>From install to production handover</h3>
+          <p>Installed and upgraded core components across multiple non-production environments through two major vendor transitions, and wrote the documentation production support used to carry releases into production.</p>
+        </article>
+        <article class="card work">
+          <span class="chip">ITIL operations</span>
+          <h3>Event, incident, access and problem</h3>
+          <p>Worked ITIL processes in ServiceNow, documented defects to cut resolution time, and pulled security, infrastructure and vendor teams together to get issues resolved.</p>
+        </article>
+        <article class="card work">
+          <span class="chip">Resilience</span>
+          <h3>Checks kept running through an outage</h3>
+          <p>When the primary data quality tool was unavailable, built a config-driven (YAML) Python framework on Cloudera AI. Every check is a versioned configuration entry that can be reviewed and rerun, the same idea as infrastructure as code.</p>
+        </article>
+        <article class="card work">
+          <span class="chip">Standards</span>
+          <h3>Standards alongside infrastructure planning</h3>
+          <p>Member of domain working groups developing application standards with infrastructure planning, and worked with Data Architecture on DevOps practices and data contracts.</p>
+        </article>
+        <article class="card work">
+          <span class="chip">Cost</span>
+          <h3>One tool instead of two</h3>
+          <p>On my own initiative, led an upgrade of the defect management platform for all testing teams, which let OLG retire a second vendor's tool and its costs.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 04 HYBRID -->
+    <section id="hybrid">
+      <div class="sec-head">
+        <p class="eyebrow">04 · Hybrid connectivity</p>
+        <h2>Letting a SaaS platform reach data behind the firewall</h2>
+        <p class="sub">The move to watsonx put the platform on IBM Cloud while the data stayed on OLG's private network. Select a step to follow how the Satellite Connector bridges the two.</p>
+      </div>
+      <div class="card hy">
+        <div class="steps" id="hySteps" role="tablist" aria-label="Connection steps">
+          <button type="button" role="tab" class="is-on" data-step="0"><span>01</span>Agent</button>
+          <button type="button" role="tab" data-step="1"><span>02</span>Tunnel</button>
+          <button type="button" role="tab" data-step="2"><span>03</span>Endpoints</button>
+          <button type="button" role="tab" data-step="3"><span>04</span>Requests</button>
+          <button type="button" role="tab" data-step="4"><span>05</span>Validate</button>
+        </div>
+        <div class="hy-body">
+          <svg class="hy-svg" id="hySvg" data-step="0" viewBox="0 0 760 300" role="img" aria-label="Diagram: IBM Cloud on the left hosts watsonx.data intelligence. In the middle is the public internet. On the right, behind OLG's firewall, a connector agent opens an outbound encrypted tunnel to IBM Cloud, and requests from watsonx travel back through that tunnel to the private Cloudera data lake.">
+            <defs>
+              <marker id="hyArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="hy-arrowhead"/></marker>
+            </defs>
+            <rect class="hy-zone cloud" x="10" y="30" width="230" height="240" rx="14"/>
+            <text class="hy-zt" x="26" y="56">IBM Cloud (SaaS)</text>
+            <rect class="hy-zone net" x="260" y="30" width="190" height="240" rx="14"/>
+            <text class="hy-zt" x="276" y="56">Public internet</text>
+            <rect class="hy-zone priv" x="470" y="30" width="280" height="240" rx="14"/>
+            <text class="hy-zt" x="486" y="56">OLG private network</text>
+            <rect class="hy-fw" x="462" y="30" width="16" height="240" rx="3"/>
+            <text class="hy-fwt" x="470" y="286" text-anchor="middle">Firewall · no inbound openings</text>
+
+            <g class="hy-node n-wx"><rect x="34" y="90" width="182" height="62" rx="10"/><text x="125" y="117" text-anchor="middle">watsonx.data</text><text x="125" y="136" text-anchor="middle" class="hy-sm">intelligence</text></g>
+            <g class="hy-node n-sat"><rect x="34" y="186" width="182" height="54" rx="10"/><text x="125" y="210" text-anchor="middle">Satellite</text><text x="125" y="228" text-anchor="middle" class="hy-sm">connector endpoints</text></g>
+            <g class="hy-node n-agent"><rect x="500" y="186" width="130" height="54" rx="10"/><text x="565" y="210" text-anchor="middle">Connector</text><text x="565" y="228" text-anchor="middle" class="hy-sm">agent</text></g>
+            <g class="hy-node n-lake"><rect x="520" y="82" width="210" height="74" rx="10"/><text x="625" y="110" text-anchor="middle">Cloudera data lake</text><text x="625" y="130" text-anchor="middle" class="hy-sm">Hive · Impala · HDFS</text></g>
+
+            <path class="hy-tunnel" d="M500 213 H216" />
+            <path class="hy-tunnel-core" d="M500 213 H216" marker-start="url(#hyArrow)"/>
+            <text class="hy-lbl l-tunnel" x="358" y="202" text-anchor="middle">Outbound TLS tunnel</text>
+            <path class="hy-link l-wx" d="M125 152 V186" marker-end="url(#hyArrow)"/>
+            <path class="hy-link l-lake" d="M600 186 V156" marker-end="url(#hyArrow)"/>
+            <circle class="hy-pkt" r="5"/>
+          </svg>
+          <div class="step-panel" id="hyPanel" aria-live="polite"></div>
+        </div>
+        <p class="fine">Simplified, generic diagram of the pattern. No OLG network addresses, hosts or configuration are shown.</p>
+      </div>
+    </section>
+
+    <!-- 05 LAB -->
+    <section id="lab">
+      <div class="sec-head">
+        <p class="eyebrow">05 · Monitoring lab</p>
+        <h2>Why a static threshold was not enough</h2>
+        <p class="sub">At OLG I built drift detection against a 30-day rolling baseline, then set up a machine learning model that learned weekend and holiday patterns where z-scores raised false alerts. The same problem shows up in any infrastructure metric with a weekly rhythm: alert fatigue on normal peaks, and real faults hidden inside them. This demo recreates it on simulated data. Switch the method and move the threshold.</p>
+      </div>
+      <div class="card lab">
+        <div class="filters">
+          <div class="seg" id="methodSeg" role="group" aria-label="Detection method">
+            <button type="button" data-method="z" aria-pressed="true">Z-score, 30-day baseline</button>
+            <button type="button" data-method="s" aria-pressed="false">Seasonal model</button>
+          </div>
+          <label class="slider">Alert threshold <output id="kOut">2.0</output>σ
+            <input type="range" id="kRange" min="1.8" max="3" step="0.1" value="2">
+          </label>
+        </div>
+        <div class="stat-row" id="labStats"></div>
+        <div class="legend" aria-hidden="true">
+          <span><i class="lg-line"></i>Daily volume</span>
+          <span><i class="lg-dash"></i>Expected</span>
+          <span><i class="lg-true"></i>Real anomaly caught</span>
+          <span><i class="lg-false"></i>False alert</span>
+          <span><i class="lg-miss"></i>Real anomaly missed</span>
+        </div>
+        <div class="chart" id="labChart" role="img" aria-label="Line chart of simulated daily volume with alerts"></div>
+        <p class="note" id="labNote"></p>
+        <div class="cta">
+          <a class="btn primary" href="observability-lab/">Read the full case study</a>
+          <a class="btn" href="https://github.com/searchmont-analytics/zscore-vs-ml" target="_blank" rel="noopener">View the code</a>
+        </div>
+        <p class="fine">Simulated data for illustration only. No OLG data is shown on this site.</p>
+      </div>
+      <div class="card lab-video">
+        <div class="lab-video-text">
+          <span class="chip">Video explainer</span>
+          <h3>Beyond the Z-Score: machine learning for data observability</h3>
+          <p>A walkthrough of the full case study: where a rolling z-score breaks down on weekend and holiday patterns, and how a machine learning model that learns what a normal day looks like fixes it.</p>
+        </div>
+        <div class="video">
+          <iframe src="https://www.youtube-nocookie.com/embed/miw5Vw_KiiE" title="Beyond the Z Score - Full Case Study Explainer" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 PROJECTS -->
+    <section id="projects">
+      <div class="sec-head">
+        <p class="eyebrow">06 · Config-driven projects</p>
+        <h2>Pipelines I built for my own community</h2>
+        <p class="sub">Two open-data projects for the Searchmont fire response area, built in Python and JavaScript and hosted as static sites. Each keeps its rules in configuration, not code, so they can be reviewed, tuned and rerun. The figures below are real results from the 2024 run.</p>
+      </div>
+      <div class="card dash">
+        <div class="dash-head">
+          <div>
+            <span class="chip">Python · LiDAR · Leaflet</span>
+            <h3>FireSmart LiDAR neighbourhood risk map</h3>
+            <p>Scores every house against the FireSmart Home Ignition Zone using Ontario's airborne LiDAR: tree canopy and ladder fuel within 10 m and 30 m of the wall. Every threshold lives in one config file so it can be tuned with a FireSmart representative without touching code.</p>
+          </div>
+          <div class="dash-links">
+            <a class="btn primary" href="https://searchmont-analytics.github.io/smt-firesmart-assessment-lidar/" target="_blank" rel="noopener">Open the demo map</a>
+            <a class="btn" href="https://searchmont-analytics.github.io/smt-firesmart-assessment-lidar/searchmont-2024.html" target="_blank" rel="noopener">2024 Searchmont map</a>
+            <small>The 2024 map is passphrase protected. The passphrase is on my resume.</small>
+          </div>
+        </div>
+
+        <div class="fs-banner" id="fsBanner">
+          <div class="fs-why">
+            <p><b>Why it matters.</b> Most houses lost in a wildfire are not hit by the main wall of flame. They are lit by wind-blown embers, and by fire that travels through trees and brush close to the wall. FireSmart calls the 30 m around a house the Home Ignition Zone: what grows there largely decides whether fire reaches the house.</p>
+            <button type="button" class="icon-btn" id="fsToggle" aria-pressed="false" hidden>Pause</button>
+          </div>
+          <div class="fs-panels">
+            <figure class="fs-panel fs-bad">
+              <figcaption><b>Trees crowd the house</b><span>Canopy is continuous from the forest edge to the wall</span></figcaption>
+              <svg viewBox="0 -8 560 396" role="img" aria-label="Top-down view of a house with trees growing inside the 10 metre and 30 metre rings. Embers from a wildfire on the left light the outer trees, fire steps from tree to tree, and reaches the house wall.">
+                <defs>
+                  <radialGradient id="fsGlow"><stop offset="0" stop-color="#fab219" stop-opacity=".95"/><stop offset=".55" stop-color="#ec835a" stop-opacity=".5"/><stop offset="1" stop-color="#d03b3b" stop-opacity="0"/></radialGradient>
+                  <linearGradient id="fsFront" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#d95926" stop-opacity=".5"/><stop offset="1" stop-color="#d95926" stop-opacity="0"/></linearGradient>
+                </defs>
+                <rect class="fs-front" x="0" y="-8" width="130" height="396" fill="url(#fsFront)"/>
+                <rect class="fs-ring r30" x="118" y="17" width="364" height="346" rx="150" pathLength="1"/>
+                <rect class="fs-ring r10" x="218" y="117" width="164" height="146" rx="50" pathLength="1"/>
+                <rect class="fs-ring r1" x="260.5" y="159.5" width="79" height="61" rx="7.5" pathLength="1"/>
+                <text class="fs-lbl" x="300" y="9" text-anchor="middle">30 m</text>
+                <text class="fs-lbl" x="300" y="110" text-anchor="middle">10 m</text>
+                <g class="fs-tree wild"><circle class="fs-glow" cx="38" cy="70" r="40"/><circle class="fs-can" cx="38" cy="70" r="22"/></g>
+                <g class="fs-tree wild"><circle class="fs-glow" cx="84" cy="118" r="27"/><circle class="fs-can" cx="84" cy="118" r="14"/></g>
+                <g class="fs-tree wild"><circle class="fs-glow" cx="66" cy="190" r="37"/><circle class="fs-can" cx="66" cy="190" r="20"/></g>
+                <g class="fs-tree wild"><circle class="fs-glow" cx="34" cy="300" r="40"/><circle class="fs-can" cx="34" cy="300" r="22"/></g>
+                <g class="fs-tree"><circle class="fs-can" cx="400" cy="90" r="18"/><circle class="fs-trunk" cx="400" cy="90" r="2.5"/></g>
+                <g class="fs-tree"><circle class="fs-can" cx="440" cy="190" r="15"/><circle class="fs-trunk" cx="440" cy="190" r="2.5"/></g>
+                <g class="fs-tree"><circle class="fs-can" cx="430" cy="280" r="20"/><circle class="fs-trunk" cx="430" cy="280" r="2.5"/></g>
+                <g class="fs-tree"><circle class="fs-can" cx="300" cy="328" r="17"/><circle class="fs-trunk" cx="300" cy="328" r="2.5"/></g>
+                <g class="fs-tree"><circle class="fs-can" cx="222" cy="318" r="15"/><circle class="fs-trunk" cx="222" cy="318" r="2.5"/></g>
+                <g class="fs-tree"><circle class="fs-can" cx="350" cy="148" r="13"/><circle class="fs-trunk" cx="350" cy="148" r="2.5"/></g>
+                <g class="fs-tree burn" style="--t:3.4s"><circle class="fs-glow" cx="150" cy="200" r="42"/><circle class="fs-can" cx="150" cy="200" r="22"/><circle class="fs-trunk" cx="150" cy="200" r="2.5"/></g>
+                <g class="fs-tree burn" style="--t:4.1s"><circle class="fs-glow" cx="185" cy="140" r="38"/><circle class="fs-can" cx="185" cy="140" r="20"/><circle class="fs-trunk" cx="185" cy="140" r="2.5"/></g>
+                <g class="fs-tree burn" style="--t:4.7s"><circle class="fs-glow" cx="170" cy="262" r="34"/><circle class="fs-can" cx="170" cy="262" r="18"/><circle class="fs-trunk" cx="170" cy="262" r="2.5"/></g>
+                <g class="fs-tree burn" style="--t:5.3s"><circle class="fs-glow" cx="300" cy="60" r="38"/><circle class="fs-can" cx="300" cy="60" r="20"/><circle class="fs-trunk" cx="300" cy="60" r="2.5"/></g>
+                <g class="fs-tree burn" style="--t:5.8s"><circle class="fs-glow" cx="236" cy="180" r="32"/><circle class="fs-can" cx="236" cy="180" r="17"/><circle class="fs-trunk" cx="236" cy="180" r="2.5"/></g>
+                <g class="fs-tree burn" style="--t:6.6s"><circle class="fs-glow" cx="252" cy="214" r="22"/><circle class="fs-can" cx="252" cy="214" r="11"/><circle class="fs-trunk" cx="252" cy="214" r="2"/></g>
+                <g class="fs-house">
+                  <rect class="fs-hglow" x="238" y="137" width="124" height="106" rx="30"/>
+                  <rect class="fs-hbody" x="268" y="167" width="64" height="46" rx="2"/>
+                  <path class="fs-roof" d="M268 167L284 190L268 213M332 167L316 190L332 213M284 190H316"/>
+                </g>
+                <circle class="fs-ember" cx="66" cy="190" r="3" style="--t:2s;--dx:84px;--dy:10px"/>
+                <circle class="fs-ember" cx="84" cy="118" r="3" style="--t:2.7s;--dx:101px;--dy:22px"/>
+                <circle class="fs-ember" cx="34" cy="300" r="3" style="--t:3.3s;--dx:136px;--dy:-38px"/>
+                <circle class="fs-ember" cx="38" cy="70" r="3" style="--t:3.9s;--dx:262px;--dy:-10px"/>
+                <circle class="fs-ember" cx="150" cy="200" r="3" style="--t:4.4s;--dx:86px;--dy:-20px"/>
+                <circle class="fs-ember" cx="170" cy="262" r="3" style="--t:5.2s;--dx:82px;--dy:-48px"/>
+                <circle class="fs-ember" cx="236" cy="180" r="3" style="--t:6.3s;--dx:38px;--dy:4px"/>
+                <circle class="fs-ember" cx="252" cy="214" r="3" style="--t:6.8s;--dx:20px;--dy:-8px"/>
+              </svg>
+              <p class="fs-verdict">Fire reaches the wall. This house scores high.</p>
+            </figure>
+            <figure class="fs-panel fs-ok">
+              <figcaption><b>Space around the house</b><span>Thinned trees in Zone 2, clear ground in Zone 1</span></figcaption>
+              <svg viewBox="0 -8 560 396" role="img" aria-label="Top-down view of a house with a few spaced trees in the 30 metre ring and clear ground inside 10 metres. Embers from the same wildfire light one outer tree, the rest land on clear ground and go out, and the house is not reached.">
+                <rect class="fs-front" x="0" y="-8" width="130" height="396" fill="url(#fsFront)"/>
+                <rect class="fs-ring r30" x="118" y="17" width="364" height="346" rx="150" pathLength="1"/>
+                <rect class="fs-ring r10" x="218" y="117" width="164" height="146" rx="50" pathLength="1"/>
+                <rect class="fs-ring r1" x="260.5" y="159.5" width="79" height="61" rx="7.5" pathLength="1"/>
+                <text class="fs-lbl" x="300" y="9" text-anchor="middle">30 m</text>
+                <text class="fs-lbl" x="300" y="110" text-anchor="middle">10 m</text>
+                <g class="fs-tree wild"><circle class="fs-glow" cx="38" cy="70" r="40"/><circle class="fs-can" cx="38" cy="70" r="22"/></g>
+                <g class="fs-tree wild"><circle class="fs-glow" cx="84" cy="118" r="27"/><circle class="fs-can" cx="84" cy="118" r="14"/></g>
+                <g class="fs-tree wild"><circle class="fs-glow" cx="66" cy="190" r="37"/><circle class="fs-can" cx="66" cy="190" r="20"/></g>
+                <g class="fs-tree wild"><circle class="fs-glow" cx="34" cy="300" r="40"/><circle class="fs-can" cx="34" cy="300" r="22"/></g>
+                <g class="fs-tree"><circle class="fs-can" cx="150" cy="275" r="18"/><circle class="fs-trunk" cx="150" cy="275" r="2.5"/></g>
+                <g class="fs-tree"><circle class="fs-can" cx="310" cy="52" r="17"/><circle class="fs-trunk" cx="310" cy="52" r="2.5"/></g>
+                <g class="fs-tree"><circle class="fs-can" cx="440" cy="120" r="16"/><circle class="fs-trunk" cx="440" cy="120" r="2.5"/></g>
+                <g class="fs-tree"><circle class="fs-can" cx="430" cy="290" r="18"/><circle class="fs-trunk" cx="430" cy="290" r="2.5"/></g>
+                <g class="fs-tree burn" style="--t:4.1s"><circle class="fs-glow" cx="160" cy="110" r="34"/><circle class="fs-can" cx="160" cy="110" r="18"/><circle class="fs-trunk" cx="160" cy="110" r="2.5"/></g>
+                <g class="fs-house">
+                  <rect class="fs-hbody" x="268" y="167" width="64" height="46" rx="2"/>
+                  <path class="fs-roof" d="M268 167L284 190L268 213M332 167L316 190L332 213M284 190H316"/>
+                </g>
+                <circle class="fs-ember" cx="66" cy="190" r="3" style="--t:2s;--dx:124px;--dy:12px"/>
+                <circle class="fs-ember" cx="84" cy="118" r="3" style="--t:2.7s;--dx:76px;--dy:-8px"/>
+                <circle class="fs-ember" cx="34" cy="300" r="3" style="--t:3.3s;--dx:170px;--dy:-52px"/>
+                <circle class="fs-ember" cx="38" cy="70" r="3" style="--t:3.9s;--dx:205px;--dy:8px"/>
+                <circle class="fs-ember" cx="160" cy="110" r="3" style="--t:5s;--dx:78px;--dy:42px"/>
+                <circle class="fs-ember" cx="66" cy="190" r="3" style="--t:5.6s;--dx:192px;--dy:6px"/>
+                <circle class="fs-ember" cx="160" cy="110" r="3" style="--t:6.3s;--dx:96px;--dy:-30px"/>
+              </svg>
+              <p class="fs-verdict">The fire runs out of fuel. This house scores low.</p>
+            </figure>
+          </div>
+          <ul class="fs-key">
+            <li><b>0–1.5 m</b>Non-combustible strip at the wall</li>
+            <li><b>1.5–10 m · Zone 1</b>Nothing that carries fire to the house</li>
+            <li><b>10–30 m · Zone 2</b>Thinned, spaced trees slow the fire down</li>
+          </ul>
+        </div>
+
+        <div class="tiles mini">
+          <div class="tile"><div class="tile-k">Houses scored</div><div class="tile-v"><span data-count="603">603</span></div></div>
+          <div class="tile"><div class="tile-k">LiDAR tiles, 1 km</div><div class="tile-v"><span data-count="111">111</span></div></div>
+          <div class="tile"><div class="tile-k">Outbuildings found</div><div class="tile-v"><span data-count="373">373</span></div></div>
+          <div class="tile"><div class="tile-k">Validation, houses found</div><div class="tile-v">14<small>of 14</small></div></div>
+        </div>
+
+        <div class="filters">
+          <div class="seg" id="zoneSeg" role="group" aria-label="Score to show">
+            <button type="button" data-zone="overall" aria-pressed="true">Overall</button>
+            <button type="button" data-zone="z1" aria-pressed="false">Zone 1 · 1.5–10 m</button>
+            <button type="button" data-zone="z2" aria-pressed="false">Zone 2 · 10–30 m</button>
+          </div>
+        </div>
+
+        <div class="grid g2 charts">
+          <figure class="panel">
+            <figcaption><b>Houses by hazard rating</b><span id="ratingSub"></span></figcaption>
+            <div class="hbars" id="ratingBars"></div>
+            <p class="note" id="ratingNote"></p>
+          </figure>
+          <figure class="panel">
+            <figcaption><b>Distribution of overall scores</b><span>Houses per 10-point band, 0 is lowest hazard</span></figcaption>
+            <div class="hist" id="hist"></div>
+            <div class="hist-axis" aria-hidden="true"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
+          </figure>
+          <figure class="panel">
+            <figcaption><b>What drives the rating</b><span id="driverSub"></span></figcaption>
+            <div class="legend"><span><i class="sw s1"></i>Canopy cover %</span><span><i class="sw s2"></i>Ladder fuel %</span></div>
+            <div class="gbars" id="driverBars"></div>
+          </figure>
+          <figure class="panel">
+            <figcaption><b>Flags that add to the score</b><span>Share of the 603 houses</span></figcaption>
+            <div class="meters" id="flagMeters"></div>
+            <p class="note">Validated on a synthetic tile with known truth: rank agreement between yard management and score was Spearman −0.98.</p>
+          </figure>
+        </div>
+        <details class="tbl">
+          <summary>View the figures as a table</summary>
+          <div id="lidarTable"></div>
+        </details>
+        <div class="fs-use">
+          <h4>From scores to fire prevention</h4>
+          <p>What is a home or cottage worth? A wildfire can take a home in an afternoon, and most of what protects it has to be done long before there is smoke in the air. This analysis has given the fire department a place to start that work.</p>
+          <ul>
+            <li><b>Who to visit first</b>The ranked scores set the order of visits, so the highest-hazard properties are approached first.</li>
+            <li><b>A conversation at each door</b>Each owner is shown their own result, and a detailed report with FireSmart steps for their property is left with them.</li>
+            <li><b>A message for the whole community</b>Where many houses score High or Extreme, social channels and promotions reinforce the one-to-one consultations.</li>
+          </ul>
+          <div class="fs-total" id="fsTotal">
+            <div class="fs-total-head">
+              <div class="tile-k">Assessed value at stake · 2018 roll</div>
+              <div class="fs-total-v">$<span id="fsTotalNum">49.9</span> million</div>
+              <div class="fs-total-sub">All 711 properties in the Searchmont Local Services Board area</div>
+            </div>
+            <div class="fs-total-bar" aria-hidden="true">
+              <i style="--w:36.4;--c:var(--s1)"></i><i style="--w:9.6;--c:var(--s3)"></i><i style="--w:2.9;--c:var(--s2)"></i><i style="--w:1;--c:var(--muted)"></i>
+            </div>
+            <div class="fs-total-parts">
+              <div class="fs-part" style="--c:var(--s1);--n:0">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7M5 10v10h14V10M10 20v-6h4v6"/></svg>
+                <div><b>$36.4M</b><span>365 homes and cottages</span></div>
+              </div>
+              <div class="fs-part" style="--c:var(--s3);--n:1">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l5 7h-3l4 6H6l4-6H7zM12 16v5"/></svg>
+                <div><b>$9.6M</b><span>313 parcels of vacant land</span></div>
+              </div>
+              <div class="fs-part" style="--c:var(--s2);--n:2">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 20l7-12 4 6 3-4 6 10zM7.2 11.5l1.8 1.7 1.6-1.4"/></svg>
+                <div><b>$2.9M</b><span>Ski resort, 3 parcels</span></div>
+              </div>
+              <div class="fs-part" style="--c:var(--muted);--n:3">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V5h10v16M14 10h6v11M7 9h4M7 13h4M7 17h4M2 21h20"/></svg>
+                <div><b>$1.0M</b><span>30 commercial, community and other</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="fine">Community-level summaries only. Property-level results are shared with the owner. LiDAR screens vegetation and terrain; it does not replace an on-site FireSmart assessment. Assessed values are totals from the 2018 Searchmont Local Services Board assessment roll; they include land and are not market or replacement values. Contains information licensed under the Open Government Licence – Ontario.</p>
+      </div>
+
+      <div class="card dash atlas">
+        <div class="dash-head">
+          <div>
+            <span class="chip">GIS · Network routing · Open data</span>
+            <h3>Searchmont Water Source Evaluation Atlas</h3>
+            <p>The response area has one hydrant and relies on tankers and drafting sites for everything else. I broke "where should new water supply go?" into five steps that can each be checked on their own.</p>
+          </div>
+          <div class="dash-links">
+            <a class="btn primary" href="https://searchmont-analytics.github.io/smt_water_sources/" target="_blank" rel="noopener">Open the live atlas</a>
+          </div>
+        </div>
+        <div class="atlas-body">
+          <div class="steps" id="steps" role="tablist" aria-label="Atlas steps">
+            <button type="button" role="tab" class="is-on" data-step="0"><span>01</span>Water</button>
+            <button type="button" role="tab" data-step="1"><span>02</span>Roads</button>
+            <button type="button" role="tab" data-step="2"><span>03</span>Coverage</button>
+            <button type="button" role="tab" data-step="3"><span>04</span>Storage</button>
+            <button type="button" role="tab" data-step="4"><span>05</span>Evaluate</button>
+          </div>
+          <div class="step-panel" id="stepPanel" aria-live="polite"></div>
+          <img src="images/water-atlas.webp" alt="The atlas's Evaluate step: clusters of homes mapped against drafting locations and the Searchmont Resort hydrant" loading="lazy" width="1915" height="917">
+        </div>
+        <p class="fine">The atlas labels what is verified and what is assumed. Proposed storage never counts as available water, and coverage estimates are for planning discussion, not certified response times.</p>
+      </div>
+    </section>
+
+    <!-- 07 LEADERSHIP -->
+    <section id="leadership">
+      <div class="sec-head">
+        <p class="eyebrow">07 · Incident leadership</p>
+        <h2>Incident command, root cause and continuous improvement</h2>
+        <p class="sub">My people leadership ran alongside my OLG career for three decades. Hover or tap a bar for detail.</p>
+      </div>
+      <div class="card">
+        <div class="legend"><span><i class="sw s1"></i>OLG</span><span><i class="sw s2"></i>Community leadership</span><span><i class="sw s3"></i>Education</span></div>
+        <div class="tl" id="timeline"></div>
+      </div>
+      <div class="lead-photos">
+        <figure class="lead-photo">
+          <img src="images/lead-board.webp" alt="Travis seated at a microphone at a Local Services Board public meeting, with residents in the audience behind him" loading="lazy" width="1448" height="1086" style="object-position: 62% 50%">
+          <figcaption><b>Local Services Board</b><span>Public relations</span></figcaption>
+        </figure>
+        <figure class="lead-photo">
+          <img src="images/lead-chief.webp" alt="Travis in firefighter gear and a white chief's helmet, holding a clipboard at a fire scene with a crew and fire truck behind him" loading="lazy" width="1086" height="1448" style="object-position: 50% 18%">
+          <figcaption><b>Fire Chief</b><span>Searchmont · 11 years</span></figcaption>
+        </figure>
+        <figure class="lead-photo">
+          <img src="images/lead-community.webp" alt="Travis crouching beside the wooden Searchmont sign, with the fire hall in the background" loading="lazy" width="1182" height="1331" style="object-position: 50% 25%">
+          <figcaption><b>Community</b><span>Project leader</span></figcaption>
+        </figure>
+      </div>
+      <div class="grid g3">
+        <article class="card work">
+          <span class="chip">Incident command</span>
+          <h3>Command across agencies</h3>
+          <p>Held incident command at fire, rescue, hazardous materials and medical incidents, coordinating with the OPP, paramedic services, the Ministry of Natural Resources, the Office of the Fire Marshal and neighbouring departments.</p>
+        </article>
+        <article class="card work">
+          <span class="chip">Root cause</span>
+          <h3>Weekly debriefs on every call</h3>
+          <p>What went well, what to improve. Outside of legislative changes, these debriefs were the main driver of change in the department, the same loop as a good post-incident review.</p>
+        </article>
+        <article class="card work">
+          <span class="chip">People</span>
+          <h3>Fire Chief, 21 volunteers</h3>
+          <p>Set priorities and expectations, and coached and developed members, including four captains. The key was learning what motivated each person and building on it.</p>
+        </article>
+        <article class="card work">
+          <span class="chip">Lifecycle &amp; budget</span>
+          <h3>$1 million of equipment kept to standard</h3>
+          <p>Managed a ~$100,000 annual budget and ~$1M in OHSA-compliant equipment, with replacement funds planned ahead, reported at each monthly public meeting of the Local Services Board.</p>
+        </article>
+        <article class="card work">
+          <span class="chip">Mentoring</span>
+          <h3>NFPA-qualified instructor</h3>
+          <p>Planned and delivered training and drills, and helped coordinate pooled courses for 26 fire departments as Secretary of the Algoma Mutual Aid Association.</p>
+        </article>
+        <article class="card work">
+          <span class="chip">Delivery</span>
+          <h3>$400,000 raised for a skatepark</h3>
+          <p>As President of the Superior Community Skatepark Association, led the team that funded Sault Ste. Marie's first concrete skatepark with the City and two levels of government.</p>
+        </article>
+      </div>
+      <p class="more">More on the fire service work: <a href="https://travis-mccormack-emergency-service.com/" target="_blank" rel="noopener">travis-mccormack-emergency-service.com</a></p>
+    </section>
+
+    <!-- 08 GAME -->
+    <section id="game">
+      <div class="sec-head">
+        <p class="eyebrow">08 · Interactive game</p>
+        <h2>Experience the Ingestion Gatekeeper</h2>
+        <p class="sub">A playable retro-cyberpunk simulation of master data management, schema drift and triage under pressure, built using JavaScript, HTML5 Canvas, the Web Audio API and the Web Speech API in a single self-contained file with no dependencies, and hosted as a static site. <span class="hashtag">#sound-on</span></p>
+      </div>
+      <a class="game-ad-card" id="portfolioGameAd" href="https://searchmont-analytics.github.io/dq_games/" target="_blank" rel="noopener noreferrer">
+        <canvas class="game-ad-canvas" id="portfolioGameCanvas" aria-hidden="true"></canvas>
+        <div class="game-ad-scanlines" aria-hidden="true"></div>
+
+        <div class="game-ad-toolbar">
+          <div class="game-ad-badge">
+            <span class="game-ad-dot"></span>
+            <span>FEATURED INTERACTIVE PROJECT</span>
+          </div>
+
+          <button type="button" class="game-ad-sound-btn" id="gameAdSoundBtn" aria-pressed="false">
+            <span id="gameAdSoundIcon" aria-hidden="true">🔇</span>
+            <span id="gameAdSoundLabel">SOUND OFF</span>
+          </button>
+        </div>
+
+        <div class="game-ad-body">
+          <div class="game-ad-info">
+            <div class="game-ad-title">
+              <span>[ INGESTION PROTOCOL ]</span>
+            </div>
+            <div class="game-ad-tagline" id="gameAdTagline">
+              [!] 42 LEGACY MAINFRAMES BURNING
+            </div>
+            <p class="game-ad-desc">
+              You are the Lead Data Steward standing between raw, messy upstream feeds and the Enterprise Data Lakehouse. Catch NULL keys, detect MDM master record collisions, and quarantine unmasked PII before downstream BI collapses.
+            </p>
+          </div>
+
+          <div class="game-ad-action">
+            <div class="game-ad-play-btn">
+              <span>PLAY IN BROWSER</span>
+              <span>&rarr;</span>
+            </div>
+            <span class="game-ad-hint">Zero install &bull; Procedural audio</span>
+          </div>
+        </div>
+      </a>
+    </section>
+
+    <!-- 09 SKILLS -->
+    <section id="skills">
+      <div class="sec-head">
+        <p class="eyebrow">09 · Skills &amp; education</p>
+        <h2>Platforms, tools, methods and training</h2>
+      </div>
+      <div class="filters">
+        <div class="seg wrap" id="skillSeg" role="group" aria-label="Filter skills"></div>
+      </div>
+      <div class="card"><div class="tags" id="skillTags"></div></div>
+      <div class="grid g2">
+        <div class="card">
+          <h3>Education</h3>
+          <ul class="edu">
+            <li>
+              <span class="edu-logo" aria-hidden="true">AU</span>
+              <div class="edu-body">
+                <p class="edu-meta">Algoma University · 2006–2009</p>
+                <b>Bachelor of Science, Mathematics and Computer Science</b>
+                <div class="edu-chips"><span class="chip">Cum Laude</span><span class="chip">Award of Excellence in Mathematics</span></div>
+              </div>
+            </li>
+            <li>
+              <span class="edu-logo" aria-hidden="true">AU</span>
+              <div class="edu-body">
+                <p class="edu-meta">Algoma University</p>
+                <b>Certificate in Information Technology</b>
+              </div>
+            </li>
+            <li>
+              <span class="edu-logo alt" aria-hidden="true">SC</span>
+              <div class="edu-body">
+                <p class="edu-meta">Sault College · 2004–2006</p>
+                <b>General Arts and Science Diploma, Teacher Education Stream</b>
+                <div class="edu-chips"><span class="chip">Graduated with Honours</span></div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Training and certifications</h3>
+          <ul class="list">
+            <li><b>Data Scientist's Toolbox, Johns Hopkins University</b><span>With distinction, 2014</span></li>
+            <li><b>Incident Management System (IMS) 100</b></li>
+            <li><b>NFPA 1021 Fire Officer I</b></li>
+            <li><b>NFPA 1041 Fire and Emergency Services Instructor</b></li>
+            <li><b>National Coaching Certification Program (NCCP), Multi-Sport</b></li>
+            <li><b>Ontario Fire College, Legislation</b><span>Fire Protection and Prevention Act, 1997; Occupational Health and Safety Act</span></li>
+            <li><b>Gabegendaadowin, Algoma University</b><span>Anishinaabe culture, treaties, Truth and Reconciliation Commission Calls to Action</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 CONTACT -->
+    <section id="contact">
+      <div class="sec-head">
+        <p class="eyebrow">10 · Contact</p>
+        <h2>Let's talk about the role</h2>
+        <p class="sub">Choose what you need and I'll reply directly. References are available on request.</p>
+      </div>
+      <div class="grid g2">
+        <form class="card form" id="contactForm">
+          <label>Name<input name="name" required autocomplete="name"></label>
+          <label>Organization<input name="org" autocomplete="organization"></label>
+          <fieldset>
+            <legend>I'd like to receive</legend>
+            <label class="ck"><input type="checkbox" name="want" value="Resume" checked>Resume</label>
+            <label class="ck"><input type="checkbox" name="want" value="Phone number">Phone number</label>
+            <label class="ck"><input type="checkbox" name="want" value="References">References</label>
+            <label class="ck"><input type="checkbox" name="want" value="LiDAR map passphrase">LiDAR map passphrase</label>
+          </fieldset>
+          <label>Message<textarea name="msg" rows="4"></textarea></label>
+          <button class="btn primary" type="submit">Write the email</button>
+          <p class="fine">Opens your email app with the request filled in. Nothing is sent from this page.</p>
+        </form>
+        <div class="card contact-side">
+          <h3>Travis C.W. McCormack</h3>
+          <p>Searchmont, Ontario. Able to work onsite in Toronto or Sault Ste. Marie.</p>
+          <a class="btn" href="https://www.linkedin.com/in/travis-mccormack-168b372/" target="_blank" rel="noopener">Connect on LinkedIn</a>
+          <ul class="list links">
+            <li><a href="https://searchmont-analytics.github.io/smt-firesmart-assessment-lidar/" target="_blank" rel="noopener">FireSmart LiDAR risk map</a></li>
+            <li><a href="https://searchmont-analytics.github.io/smt_water_sources/" target="_blank" rel="noopener">Water Source Evaluation Atlas</a></li>
+            <li><a href="https://data-analytics-travis-mccormack.com/" target="_blank" rel="noopener">Data and analytics portfolio</a></li>
+            <li><a href="https://travis-mccormack-emergency-service.com/" target="_blank" rel="noopener">Emergency management portfolio</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">© Travis McCormack · Static HTML, CSS and JavaScript on GitHub Pages behind Cloudflare DNS. No cookies.</footer>
+</div>
+
+<div class="tip" id="tip" role="tooltip" hidden></div>
+<script src="app.js?v=1"></script>
+</body>
+</html>
