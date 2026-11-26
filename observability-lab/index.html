@@ -331,7 +331,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 20px; }
     <p class="prose">Source, data generator and evaluation: <a href="https://github.com/searchmont-analytics/zscore-vs-ml" style="color:var(--ml)">github.com/searchmont-analytics/zscore-vs-ml</a></p>
     <p class="muted prose" style="font-size:.9rem">All data is synthetic. The demand shape (weekend, holiday, event and jackpot effects) is hand-set in <code>generate_data.py</code>. The model only sees calendar facts and has to learn the size of each effect from the data.</p>
   </section>
-  <footer class="fine"><span>Simulated data for illustration only. No OLG data is shown here.</span><span>No cookies.</span><span><a href="/#lab">Travis McCormack · Infrastructure portfolio</a></span></footer>
+  <footer class="fine"><span>Simulated data for illustration only. No OLG data is shown here.</span><span>No cookies; visits are counted with Cloudflare Web Analytics.</span><span><a href="/#lab">Travis McCormack · Infrastructure portfolio</a></span></footer>
 </div>
 
 <script>
@@ -593,5 +593,6 @@ new MutationObserver(() => { drawMain(); drawQ(); }).observe(document.documentEl
   [].forEach.call(document.querySelectorAll('#top, section.stack[id]'), function (el) { spy.observe(el); });
 })();
 </script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "779794d38d4946ffbd93592fc01d13ea"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
